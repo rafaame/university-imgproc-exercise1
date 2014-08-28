@@ -1,7 +1,11 @@
 #ifndef __OPERATION_H__
 #define __OPERATION_H__
 
+#include "common.h"
+
 using namespace std;
+
+class Image;
 
 enum Operation_t
 {
@@ -9,7 +13,7 @@ enum Operation_t
 	OPERATION_NONE,
 	OPERATION_SUM,
 	OPERATION_SUBTRACT,
-	OPERATION_CONTRAST_STRECH,
+	OPERATION_CONTRAST_STRETCH,
 	OPERATION_LAST
 
 };
@@ -60,6 +64,8 @@ public:
 		return filename;
 
 	}
+
+	Image *execute(Image *leftOperand = NULL);
 
 };
 

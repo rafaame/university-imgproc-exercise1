@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 
 					case 'c':
 
-						op = new Operation(OPERATION_CONTRAST_STRECH);
+						op = new Operation(OPERATION_CONTRAST_STRETCH);
 
 						break;
 
@@ -71,10 +71,14 @@ int main(int argc, char *argv[])
 	}
 
 	Operation *op = NULL;
+	Image *image = NULL;
+
 	while(op = ops.front())
 	{
 
 		cout << "Operation = " << op->getType() << "; filename = " << op->getFilename() << endl;
+
+		image = op->execute(image);
 
 		ops.pop();
 
