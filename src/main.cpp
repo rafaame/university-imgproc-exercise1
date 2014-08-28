@@ -1,5 +1,6 @@
 #include "common.h"
 #include "Operation.h"
+#include "Image.h"
 
 using namespace std;
 
@@ -73,12 +74,24 @@ int main(int argc, char *argv[])
 	Operation *op = NULL;
 	Image *image = NULL;
 
-	while(op = ops.front())
+	while((op = ops.front()))
 	{
 
 		cout << "Operation = " << op->getType() << "; filename = " << op->getFilename() << endl;
 
 		image = op->execute(image);
+
+		for(int i = 0; i < image->height; i++)
+		{
+
+			for(int j = 0; j < image->width; j++)
+				cout << image->data[i][j] << " ";
+
+			cout << endl;
+
+		}
+
+		cout << endl;
 
 		ops.pop();
 
