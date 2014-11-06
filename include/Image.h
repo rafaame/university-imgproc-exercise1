@@ -20,6 +20,7 @@ public:
 	Image(uint64_t width, uint64_t height);
 	~Image();
 
+    bool writeToFile(string filename);
 	static Image *createFromFile(string filename);
 
 };

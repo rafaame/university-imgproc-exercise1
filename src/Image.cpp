@@ -6,7 +6,7 @@ Image *Image::createFromFile(string filename)
 {
 
 	string line;
-	ifstream file(filename);
+	ifstream file(filename, ios::in | ios::binary);
 
 	if(file.is_open())
 	{
@@ -16,7 +16,7 @@ Image *Image::createFromFile(string filename)
 
 			getline(file, line);
 
-			if(line.compare("P2") == 0)
+			if(/*line.compare("P2") == 0*/ true)
 			{
 
 				stringstream ss;
@@ -30,11 +30,13 @@ Image *Image::createFromFile(string filename)
 
 					Image *image = new Image(width, height);
 
-					//getline(file, line);
+                    uint8_t *buffer = new uint8_t[width * height];
+
+                    ss.read(reinterpret_cast<char *>(buffer), width * height * sizeof(uint8_t));
 
 					for(int i = 0; i < height; i++)
 						for(int j = 0; j < width; j++)
-							ss >> image->data[i][j];
+                            image->data[i][j] = (uint8_t) buffer[i * width + j];
 
 					return image;
 
@@ -47,6 +49,40 @@ Image *Image::createFromFile(string filename)
 	}
 
 	return NULL;
+
+}
+
+bool Image::writeToFile(string filename)
+{
+
+    string line;
+    ofstream file(filename, ios::out | ios::binary);
+
+    if(!file.is_open())
+        return false;
+
+    if(!file.good())
+        return false;
+
+    file << "P5" << endl;
+    file << width << " " << height << endl;
+    file << 255 << endl;
+
+    for(uint64_t i = 0; i < height; i++)
+    {
+
+        char *buffer = new char[width];
+
+        for(uint64_t j = 0; j < width; j++)
+            buffer[j] = (uint8_t) data[i][j];
+
+        file.write((const char *) buffer, width);
+
+    }
+
+    file.close();
+
+    return true;
 
 }
 

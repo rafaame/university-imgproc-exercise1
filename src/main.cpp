@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 	if(argc < 2)
 	{
 
-		cout << "Usage: main /path/to/pgm/image -s/path/to/pgm/image/to/sum -u/path/to/pgm/image/to/subtract -c";
+		cout << "Usage: main /path/to/pgm/image -s/path/to/pgm/image/to/sum -u/path/to/pgm/image/to/subtract -c -l";
 
 		return 0;
 
@@ -54,6 +54,12 @@ int main(int argc, char *argv[])
 
 						break;
 
+                    case 'l':
+
+                        op = new Operation(OPERATION_LOW_PASS_FILTER);
+
+                        break;
+
 					default:
 
 						cout << "Invalid argument '" << arg << "'" << endl;
@@ -96,5 +102,7 @@ int main(int argc, char *argv[])
 		ops.pop();
 
 	}
+
+    image->writeToFile("output.pgm");
 
 }
