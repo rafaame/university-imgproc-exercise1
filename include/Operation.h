@@ -11,10 +11,7 @@ enum Operation_t
 {
 
 	OPERATION_NONE,
-	OPERATION_SUM,
-	OPERATION_SUBTRACT,
-	OPERATION_CONTRAST_STRETCH,
-    OPERATION_LOW_PASS_FILTER,
+	OPERATION_INVERT,
 	OPERATION_LAST
 
 };
@@ -41,7 +38,9 @@ public:
 	{
 
 		this->type = type;
-		this->filename = string(filename);
+
+		if(filename)
+			this->filename = string(filename);
 
 	}
 

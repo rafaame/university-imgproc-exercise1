@@ -19,6 +19,8 @@ Image *Image::createFromFile(string filename)
 			if(/*line.compare("P2") == 0*/ true)
 			{
 
+				for(getline(file, line); line[0] == '#'; getline(file, line));
+
 				stringstream ss;
 				ss << file.rdbuf();
 
